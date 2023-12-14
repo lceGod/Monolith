@@ -9,7 +9,7 @@ using MySql.Data.MySqlClient;
 using MySqlX.XDevAPI.Common;
 using MySqlX.XDevAPI.Relational;
 
-namespace MonolithMainForm
+namespace ASMF_Monolith
 {
     class DataBase
     {
@@ -176,6 +176,20 @@ namespace MonolithMainForm
             {
                 AddMaterial(material, placementName);
             }
+        }
+        public void AddPlacement(Placement placement, string password)
+        {
+            MySqlCommand command = new MySqlCommand("INSERT INTO `placements` (`name`, `password`, `isStorage`) VALUES (@name, @pass, @isS)", GetConection());
+            command.Parameters.Add("@name", MySqlDbType.VarChar).Value = placement.Name;
+            command.Parameters.Add("@pass", MySqlDbType.Double).Value = password;
+            command.Parameters.Add("@isS", MySqlDbType.Int16).Value = Convert.ToInt64(placement.IsStorage);
+
+            OpenConection();
+
+            if (command.ExecuteNonQuery() != 1)
+                throw new Exception("PZDC");
+
+            CloseConection();
         }
     }
 }
