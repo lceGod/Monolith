@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ASMF_Monolith
 {
-    class Material
+    public class Material
     {
         public string Name { get; set; }
 
