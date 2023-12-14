@@ -7,9 +7,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-//using MySql.Data.MySqlClient;
+using MySql.Data.MySqlClient;
 
-namespace MonolithMainForm
+namespace ASMF_Monolith
 {
     public partial class LoginForm : Form
     {
@@ -34,27 +34,27 @@ namespace MonolithMainForm
             }
 
             // Создание БД и таблицы для хранения данных
-            //var db = new DataBase();
-            //var table = new DataTable();
-            //var adapter = new MySqlDataAdapter();
+            var db = new DataBase();
+            var table = new DataTable();
+            var adapter = new MySqlDataAdapter();
 
             // Создание запроса, на выбор из таблицы запесей с нужной нам парой логин-пароль
-            //var command = new MySqlCommand("SELECT * FROM placements WHERE name = @login AND password = @pass", db.GetConection());
-            //command.Parameters.Add("@login", MySqlDbType.VarChar).Value = login;
-            //command.Parameters.Add("@pass", MySqlDbType.VarChar).Value = password;
+            var command = new MySqlCommand("SELECT * FROM placements WHERE name = @login AND password = @pass", db.GetConection());
+            command.Parameters.Add("@login", MySqlDbType.VarChar).Value = login;
+            command.Parameters.Add("@pass", MySqlDbType.VarChar).Value = password;
 
-            // Реализация запроса, заполнение таблица выбранной информацией
-            //adapter.SelectCommand = command;
-            //adapter.Fill(table);
+            //Реализация запроса, заполнение таблица выбранной информацией
+            adapter.SelectCommand = command;
+            adapter.Fill(table);
             
             // Если находим подходящее нам значение, то даем доступ к функционалу Помещения
-            //if (table.Rows.Count > 0)
-            //{
+            if (table.Rows.Count > 0)
+            {
                 //var pf = new PlacementForm(login);
                 //pf.Show();
-            //}
-            //else // Иначе выводим сообщение о неверной паре логин-пароль
-                //MessageBox.Show("Неверная пара значений Логин-пароль");
+            }
+            else //Иначе выводим сообщение о неверной паре логин-пароль
+                MessageBox.Show("Неверная пара значений Логин-пароль");
 
         }
     }
