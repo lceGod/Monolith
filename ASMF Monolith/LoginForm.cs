@@ -27,10 +27,10 @@ namespace ASMF_Monolith
             // Вход в функционал менеджера
             if (login == "admin" && password == "admin") 
             {
-                //var mf = new ManagerForm();
-               // mf.Show();
+                var mf = new ManagerForm();
+                mf.Show();
                 //this.Close();
-                //return;
+                return;
             }
 
             // Создание БД и таблицы для хранения данных
@@ -50,8 +50,8 @@ namespace ASMF_Monolith
             // Если находим подходящее нам значение, то даем доступ к функционалу Помещения
             if (table.Rows.Count > 0)
             {
-                //var pf = new PlacementForm(login);
-                //pf.Show();
+                var pf = new PlacementForm(login);
+                pf.Show();
             }
             else //Иначе выводим сообщение о неверной паре логин-пароль
                 MessageBox.Show("Неверная пара значений Логин-пароль");
