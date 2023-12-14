@@ -16,7 +16,7 @@ namespace MonolithMainForm
             get { return count; } 
             set
             {
-                if (value < 0) throw new Exception("ОТРИЦАТЕЛЬНОЕ ЗНАЧЕНИЕ");
+                if (value < 0) throw new Exception("ОТРИЦАТЕЛЬНОЕ ЗНАЧЕНИЕ"); //Проверка на целостность данных
                 count = value; 
             }
         }
@@ -26,7 +26,8 @@ namespace MonolithMainForm
             get { return limit;}
             set
             {
-                if (value < 0) throw new Exception("ОТРИЦАТЕЛЬНОЕ ЗНАЧЕНИЕ");
+                if (value < 0) throw new Exception("ОТРИЦАТЕЛЬНОЕ ЗНАЧЕНИЕ"); //Проверка на целостность данных
+                count = value;
                 limit = value;
             }
         }
@@ -42,7 +43,7 @@ namespace MonolithMainForm
 
         public override string ToString()
         {
-            return string.Format("{0} {1} {2}", Name, Math.Round(Count, 2), Unit);
+            return string.Format("{0} {1} {2}", Name, Math.Round(Count, 2), Unit); //Переопределение метода ToString для класса Material
         }
 
     }
