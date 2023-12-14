@@ -6,10 +6,12 @@ using System.Threading.Tasks;
 
 namespace ASMF_Monolith
 {
-    class ManagerService
+    public class ManagerService
     {
-        private Dictionary<String, Placement> Placements;
-
+        // Словарь который хранит информации о помещения вида Имя помещения - помещение
+        private Dictionary<String, Placement> placements;
+        
+        // База данных
         private DataBase db;
 
 
@@ -17,35 +19,35 @@ namespace ASMF_Monolith
         {
             Update();
         }
-        public List<Material> GetMaterialsList(string name)
-        {
-            return Placements[name].Materials;
-        }
-        public string[] GetPlacementNames() => Placements.Keys.ToArray();
 
+        // Возвращаем список материалов по имени помещения
+        public List<Material> GetMaterialsList(string name) => placements[name].Materials;
+
+        // Возвращаем список названий помещений
+        public string[] GetPlacementNames() => placements.Keys.ToArray();
+
+        // Метод обновления информации через повторное обращение к БД
         public void Update()
         {
             db = new DataBase();
-            Placements = new Dictionary<String, Placement>();
+            placements = new Dictionary<String, Placement>();
             var placementsList = db.GetPlacements();
 
             foreach (var placement in placementsList)
             {
-                Placements[placement.Name] = placement;
+                placements[placement.Name] = placement;
             }
         }
 
+        // Метод добавления нового помещения
         public void AddPlacement(string name, string password, bool itIsStorage)
         {
-            var placements = new Placement(name, itIsStorage);
-            db.AddPlacement(placements, password);
-            
+            var placement = new Placement(name, itIsStorage);
+            placements[name] = placement;
+            db.AddPlacement(placement, password);
         }
 
-        public bool PlacementExist(string name) 
-        {
-            return Placements.ContainsKey(name);
-        }
-
+        // Проверка на существование помещения по имени
+        public bool PlacementExist(string name) => placements.ContainsKey(name);
     }
 }

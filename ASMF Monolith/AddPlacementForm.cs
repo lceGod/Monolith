@@ -12,9 +12,11 @@ namespace ASMF_Monolith
 {
     public partial class AddPlacementForm : Form
     {
-        public AddPlacementForm()
+        ManagerService service;
+        public AddPlacementForm(ManagerService mServ)
         {
             InitializeComponent();
+            this.service = mServ;
         }
 
         private void addButton_Click(object sender, EventArgs e)
@@ -28,13 +30,13 @@ namespace ASMF_Monolith
                 return;
             }
 
-            if (ManagerService.PlacementExist(name))
+            if (service.PlacementExist(name))
             {
                 MessageBox.Show("Помещение с таким названием уже существует");
                 return;
             }
 
-            ManagerService.AddPlacement(name, password, false);
+            service.AddPlacement(name, password, false);
             this.Close();
         }
     }
