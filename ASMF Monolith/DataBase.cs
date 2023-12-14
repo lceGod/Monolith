@@ -20,7 +20,7 @@ namespace ASMF_Monolith
             "password=root;" +
             "database=monolith");
 
-        public void OpenConection()
+        public void OpenConection() // Открываем соединение 
         {
             if (connection.State == System.Data.ConnectionState.Closed)
             {
@@ -28,20 +28,21 @@ namespace ASMF_Monolith
             }
         }
 
-        public void CloseConection()
+        public void CloseConection() // Закрываем соединение
         {
             if (connection.State == System.Data.ConnectionState.Open)
             {
                 connection.Close();
             }
         }
-        public MySqlConnection GetConection()
+        public MySqlConnection GetConection() //Получаем срединенеи
         {
             return connection;
         }
 
-        #region
-        public List<Placement> GetPlacements()
+        // Методы считывания данных
+        #region 
+        public List<Placement> GetPlacements() //Получаем лист помещений
         {
             var placements = new List<Placement>();
 
@@ -72,7 +73,7 @@ namespace ASMF_Monolith
             return placements;
         }
 
-        public Placement GetPlacement(string name)
+        public Placement GetPlacement(string name) //Получаем помещение
         {
 
             var table = new DataTable();
@@ -100,7 +101,7 @@ namespace ASMF_Monolith
 
             return placement;
         }
-        public List<Material> GetMaterials(string placementName)
+        public List<Material> GetMaterials(string placementName) //Получаем массив материалов
         {
             var materials = new List<Material>();
 
@@ -129,9 +130,9 @@ namespace ASMF_Monolith
 
             return materials;
         }
-        #endregion 
+        #endregion  
 
-        public void AddMaterial(Material material, string placementName)
+        public void AddMaterial(Material material, string placementName) //Метод добавления материала 
         {
             MySqlCommand command = new MySqlCommand("INSERT INTO `materials` (`placementName`, `name`, `count`, `unit`, `countLimit`) VALUES (@placeName, @name, @count, @unit, @Limit)", GetConection());
             command.Parameters.Add("@placeName", MySqlDbType.VarChar).Value = placementName;
@@ -147,7 +148,7 @@ namespace ASMF_Monolith
             CloseConection();
         }
 
-        public void DeleteMaterial(int id)
+        public void DeleteMaterial(int id) //Удаление материала
         {
             var command = new MySqlCommand("DELETE FROM `materials` WHERE `materials`.`id` = @id", GetConection());
             command.Parameters.Add("@id", MySqlDbType.Int32).Value = id;
@@ -156,7 +157,7 @@ namespace ASMF_Monolith
             CloseConection();
         }
 
-        public void UpdateMaterailList(string placementName, List<Material> materials)
+        public void UpdateMaterailList(string placementName, List<Material> materials) //Обновление списка материалов
         {
             var table = new DataTable();
             var adapter = new MySqlDataAdapter();
@@ -177,7 +178,7 @@ namespace ASMF_Monolith
                 AddMaterial(material, placementName);
             }
         }
-        public void AddPlacement(Placement placement, string password)
+        public void AddPlacement(Placement placement, string password) //Добавление помещения
         {
             MySqlCommand command = new MySqlCommand("INSERT INTO `placements` (`name`, `password`, `isStorage`) VALUES (@name, @pass, @isS)", GetConection());
             command.Parameters.Add("@name", MySqlDbType.VarChar).Value = placement.Name;
