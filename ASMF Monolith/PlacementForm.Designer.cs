@@ -1,4 +1,4 @@
-﻿namespace MonolithMainForm
+﻿namespace ASMF_Monolith
 {
     partial class PlacementForm
     {
