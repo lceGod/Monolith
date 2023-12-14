@@ -130,5 +130,52 @@ namespace MonolithMainForm
             return materials;
         }
         #endregion 
+
+        public void AddMaterial(Material material, string placementName)
+        {
+            MySqlCommand command = new MySqlCommand("INSERT INTO `materials` (`placementName`, `name`, `count`, `unit`, `countLimit`) VALUES (@placeName, @name, @count, @unit, @Limit)", GetConection());
+            command.Parameters.Add("@placeName", MySqlDbType.VarChar).Value = placementName;
+            command.Parameters.Add("@name", MySqlDbType.VarChar).Value = material.Name;
+            command.Parameters.Add("@count", MySqlDbType.Double).Value = material.Count;
+            command.Parameters.Add("@unit", MySqlDbType.VarChar).Value = material.Unit;
+            command.Parameters.Add("@limit", MySqlDbType.Double).Value = material.Limit;
+            OpenConection();
+
+            if (command.ExecuteNonQuery() != 1)
+                throw new Exception("PZDC");
+
+            CloseConection();
+        }
+
+        public void DeleteMaterial(int id)
+        {
+            var command = new MySqlCommand("DELETE FROM `materials` WHERE `materials`.`id` = @id", GetConection());
+            command.Parameters.Add("@id", MySqlDbType.Int32).Value = id;
+            OpenConection();
+            command.ExecuteNonQuery();
+            CloseConection();
+        }
+
+        public void UpdateMaterailList(string placementName, List<Material> materials)
+        {
+            var table = new DataTable();
+            var adapter = new MySqlDataAdapter();
+            var command = new MySqlCommand("SELECT id FROM materials WHERE placementName = @placementName", GetConection());
+            command.Parameters.Add("@placementName", MySqlDbType.VarChar).Value = placementName;
+            adapter.SelectCommand = command;
+            adapter.Fill(table);
+
+            foreach (DataRow row in table.Rows)
+            {
+                var cells = row.ItemArray;
+                var id = (int)(uint)cells[0];
+                DeleteMaterial(id);
+            }
+
+            foreach (var material in materials)
+            {
+                AddMaterial(material, placementName);
+            }
+        }
     }
 }
