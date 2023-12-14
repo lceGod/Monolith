@@ -12,11 +12,11 @@ namespace ASMF_Monolith
 {
     public partial class PlacementForm : Form
     {
-        //PlacementService placementService;
+        PlacementService placementService;
         public PlacementForm(string name)
         {
             InitializeComponent();
-            //placementService = new PlacementService(name);
+            placementService = new PlacementService(name);
             Update();
         }
 
@@ -25,14 +25,14 @@ namespace ASMF_Monolith
             var name = nameBox.Text;
             var unit = unitBox.Text;
 
-            //placementService.AddMaterial(name, unit);
+            placementService.AddMaterial(name, unit);
             Update();
         }
 
         void Update()
         {
             materialListBox.Items.Clear();
-            //materialListBox.Items.AddRange(placementService.placement.Materials.ToArray());
+            materialListBox.Items.AddRange(placementService.placement.Materials.ToArray());
         }
 
         private void deleteButton_Click(object sender, EventArgs e)
@@ -41,7 +41,7 @@ namespace ASMF_Monolith
             if (index == -1) return;
 
             materialListBox.Items.RemoveAt(index);
-            //placementService.DeleteMaterial(index);
+            placementService.DeleteMaterial(index);
         }
 
         private void countBox_KeyDown(object sender, KeyEventArgs e)
@@ -62,11 +62,11 @@ namespace ASMF_Monolith
                         MessageBox.Show("Не указан материал");
                         return;
                     }
-                    ////if (placementService.TryChangeMaterialCount(count, index))
-                    //{
-                    //    materialListBox.Items[index] = placementService.placement.Materials[index];
-                    //}
-                    //else MessageBox.Show("Слишком большое уменьшение количества");
+                    if (placementService.TryChangeMaterialCount(count, index))
+                    {
+                        materialListBox.Items[index] = placementService.placement.Materials[index];
+                    }
+                    else MessageBox.Show("Слишком большое уменьшение количества");
                 }
                 else
                 {
