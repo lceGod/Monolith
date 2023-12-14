@@ -6,24 +6,24 @@ using System.Threading.Tasks;
 
 namespace ASMF_Monolith
 {
-    static class ManagerService
+    class ManagerService
     {
-        static private Dictionary<String, Placement> Placements;
+        private Dictionary<String, Placement> Placements;
 
-        static private DataBase db;
+        private DataBase db;
 
 
-        static ManagerService()
+        public ManagerService()
         {
             Update();
         }
-        public static List<Material> GetMaterialsList(string name)
+        public List<Material> GetMaterialsList(string name)
         {
             return Placements[name].Materials;
         }
-        public static string[] GetPlacementNames() => Placements.Keys.ToArray();
+        public string[] GetPlacementNames() => Placements.Keys.ToArray();
 
-        public static void Update()
+        public void Update()
         {
             db = new DataBase();
             Placements = new Dictionary<String, Placement>();
@@ -35,14 +35,14 @@ namespace ASMF_Monolith
             }
         }
 
-        public static void AddPlacement(string name, string password, bool itIsStorage)
+        public void AddPlacement(string name, string password, bool itIsStorage)
         {
             var placements = new Placement(name, itIsStorage);
             db.AddPlacement(placements, password);
             
         }
 
-        public static bool PlacementExist(string name) 
+        public bool PlacementExist(string name) 
         {
             return Placements.ContainsKey(name);
         }

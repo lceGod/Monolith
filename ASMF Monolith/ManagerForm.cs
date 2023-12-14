@@ -13,7 +13,7 @@ namespace ASMF_Monolith
 {
     public partial class ManagerForm : Form
     {
-
+        ManagerService service = new(); 
         public ManagerForm()
         {
             InitializeComponent();
@@ -23,7 +23,7 @@ namespace ASMF_Monolith
         private void placementList_SelectedIndexChanged(object sender, EventArgs e)
         {
             var placementName = placementListBox.SelectedItem.ToString();
-            var materials = ManagerService.GetMaterialsList(placementName);
+            var materials = service.GetMaterialsList(placementName);
             materialListBox.Items.Clear();
             foreach (var material in materials)
             {
@@ -34,10 +34,9 @@ namespace ASMF_Monolith
 
         public void Update()
         {
-
-            ManagerService.Update();
+            service.Update();
             placementListBox.Items.Clear();
-            foreach (var item in ManagerService.GetPlacementNames())
+            foreach (var item in service.GetPlacementNames())
             {
                 placementListBox.Items.Add(item);
             }
