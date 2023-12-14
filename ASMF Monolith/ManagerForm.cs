@@ -45,9 +45,8 @@ namespace ASMF_Monolith
 
         private void AddPlacementButton_Click(object sender, EventArgs e)
         {
-            // Будущая обработка нажатия
-            //var addForm = new AddPlacementForm();
-            //addForm.ShowDialog();
+            var addForm = new AddPlacementForm();
+            addForm.ShowDialog();
         }
 
         private void UpdateButton_Click(object sender, EventArgs e)
