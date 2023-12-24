@@ -1,17 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.VisualBasic.Logging;
+﻿using System.Data;
 using MySql.Data.MySqlClient;
-using MySqlX.XDevAPI.Common;
-using MySqlX.XDevAPI.Relational;
+using Domain;
 
-namespace ASMF_Monolith
+namespace Backend
 {
-    class DataBase
+    public class DataBase
     {
         static readonly MySqlConnection connection = new(
             "server=localhost;" +
