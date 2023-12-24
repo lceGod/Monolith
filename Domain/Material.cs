@@ -3,7 +3,6 @@
     public class Material
     {
         public string Name { get; set; }
-
         private double count;
         public double Count 
         { 
@@ -17,11 +16,10 @@
         private double limit;
         public double Limit
         {
-            get { return limit;}
+            get { return limit; }
             set
             {
                 if (value < 0) throw new Exception("ОТРИЦАТЕЛЬНОЕ ЗНАЧЕНИЕ"); //Проверка на целостность данных
-                count = value;
                 limit = value;
             }
         }

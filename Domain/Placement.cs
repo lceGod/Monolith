@@ -10,6 +10,7 @@
         {
             this.Name = login;
             this.IsStorage = isStorage;
+            Materials = new List<Material>();
         }
 
     }

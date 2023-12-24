@@ -7,6 +7,12 @@ namespace Backend
         public readonly Placement placement;
         private DataBase db;
 
+        public PlacementService(DataBase db, String name)
+        {
+            this.db = db;
+            placement = db.GetPlacement(name);
+        }
+
         public PlacementService(string name) // Конструктор класса
         {
             db = new DataBase();
