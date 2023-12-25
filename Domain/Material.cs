@@ -38,5 +38,23 @@
             return string.Format("{0} {1} {2}", Name, Math.Round(Count, 2), Unit); //Переопределение метода ToString для класса Material
         }
 
+        public bool Equals(Material material)
+        {
+            if (this.Name != material.Name) return false;
+            else if (this.Count != material.Count) return false;
+            else if (this.Unit != material.Unit) return false;
+            else if (this.limit != material.Limit) return false;
+            else return true;
+        }
+
+        public static bool operator ==(Material mat1, Material mat2)
+        {
+            return mat1.Equals(mat2);
+        }
+        public static bool operator !=(Material mat1, Material mat2)
+        {
+            return !mat1.Equals(mat2);
+        }
+
     }
 }

@@ -15,6 +15,12 @@ namespace Backend
         {
             Update();
         }
+        public ManagerService(string str)
+        {
+            if (str != "test") throw new Exception();
+
+            placements = new Dictionary<String, Placement>();
+        }
 
         // Возвращаем список материалов по имени помещения
         public List<Material> GetMaterialsList(string name) => placements[name].Materials;
@@ -40,7 +46,7 @@ namespace Backend
         {
             var placement = new Placement(name, itIsStorage);
             placements[name] = placement;
-            db.AddPlacement(placement, password);
+            //db.AddPlacement(placement, password);
         }
 
         // Проверка на существование помещения по имени

@@ -7,7 +7,7 @@ namespace Tests
     public class MaterialTests
     {
         [TestMethod]
-        public void ToStringTest() // тест проверяющий правильность вывода 
+        public void ToStringTest() //  тест проверяющий метод ToString для Material
         {
             Random rand = new Random();
 
@@ -69,6 +69,33 @@ namespace Tests
             {
                 Assert.IsTrue(true);
             }
+        }
+
+        [TestMethod]
+        public void EqualsTest()
+        {
+            Material material1 = new Material("Цемент", 20, "т", 0);
+            Material material2 = new Material("Цемент", 20, "т", 0);
+
+            Assert.AreEqual(material1.Equals(material2), true);
+        }
+
+        [TestMethod]
+        public void OperatorParesTest()
+        {
+            Material material1 = new Material("Цемент", 20, "т", 0);
+            Material material2 = new Material("Цемент", 20, "т", 0);
+
+            Assert.AreEqual(material1 == material2, true);
+        }
+
+        [TestMethod]
+        public void OperatorNoParesTest()
+        {
+            Material material1 = new Material("Цемент", 20, "т", 0);
+            Material material2 = new Material("Цемент", 20, "т", 0);
+
+            Assert.AreEqual(material1 != material2, false);
         }
 
     }
